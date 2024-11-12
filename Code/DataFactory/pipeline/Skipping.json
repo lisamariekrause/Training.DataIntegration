@@ -6,7 +6,7 @@
 				"name": "Wait1",
 				"type": "Wait",
 				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
+				"onInactiveMarkAs": "Skipped",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
