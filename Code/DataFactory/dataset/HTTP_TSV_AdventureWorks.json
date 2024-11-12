@@ -1,0 +1,32 @@
+{
+	"name": "HTTP_TSV_AdventureWorks",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HTTP_AWGitHub",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"EntityName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Labs2"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@{dataset().EntityName}.csv",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": "\t",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

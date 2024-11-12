@@ -1,0 +1,75 @@
+{
+	"name": "06 - Example Global Param",
+	"properties": {
+		"activities": [
+			{
+				"name": "06 - Get Any File List",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "05 - Get File List Utility",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": false,
+					"parameters": {
+						"GetFileQuery": "SELECT * FROM [dbo].[FilesToUpload] WHERE [Enabled] = 1;"
+					}
+				}
+			},
+			{
+				"name": "Set Pipe Output",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "06 - Get Any File List",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "WorkerOutput",
+					"value": {
+						"value": "@activity('06 - Get Any File List').output.pipelineRunId",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set Var From Global Param",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "06 - Get Any File List",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "GlobalParam",
+					"value": {
+						"value": "@concat(pipeline().globalParameters.Environment,'Test')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"WorkerOutput": {
+				"type": "String"
+			},
+			"GlobalParam": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Demo Pipelines/Data Uploads"
+		},
+		"annotations": []
+	}
+}

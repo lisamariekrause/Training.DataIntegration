@@ -1,0 +1,137 @@
+{
+	"name": "Get Key Vault Value",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Secret",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Set Key URL",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@variables('CompleteSecretURL')",
+						"type": "Expression"
+					},
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net"
+					}
+				}
+			},
+			{
+				"name": "Set Key URL",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "CompleteSecretURL",
+					"value": {
+						"value": "@concat(\n'https://',\npipeline().globalParameters.KeyVaultName,\n'.vault.azure.net/secrets/',\npipeline().parameters.SecretName,\n'?api-version=7.0')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Nested Key Vault URL",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Get Secret",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AnyDatabaseTableAnyKeyVault",
+						"type": "DatasetReference",
+						"parameters": {
+							"LinkedServiceConnectionSecret": "ConnectionString-trainingdb01",
+							"SchemaName": "sys",
+							"TableName": "objects",
+							"KeyVaultURL": {
+								"value": "@concat('https://',pipeline().globalParameters.KeyVaultName,'.vault.azure.net/')",
+								"type": "Expression"
+							}
+						}
+					}
+				}
+			},
+			{
+				"name": "Get Secret List",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Set Key URL",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat('https://',\npipeline().globalParameters.KeyVaultName,\n'.vault.azure.net/secrets?api-version=7.4')",
+						"type": "Expression"
+					},
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"SecretName": {
+				"type": "string",
+				"defaultValue": "DemoKeyGetWithWebActivity"
+			}
+		},
+		"variables": {
+			"CompleteSecretURL": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Demo Pipelines/Misc"
+		},
+		"annotations": []
+	}
+}
