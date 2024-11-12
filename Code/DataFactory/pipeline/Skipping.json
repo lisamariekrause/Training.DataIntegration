@@ -20,6 +20,12 @@
 						"dependencyConditions": [
 							"Skipped"
 						]
+					},
+					{
+						"activity": "Wait3",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
