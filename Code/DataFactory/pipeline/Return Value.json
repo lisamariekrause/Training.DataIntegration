@@ -20,6 +20,27 @@
 								"type": "Expression",
 								"content": "@variables('Var1')"
 							}
+						},
+						{
+							"key": "ReturnVar2",
+							"value": {
+								"type": "Int",
+								"content": 1
+							}
+						},
+						{
+							"key": "ReturnVar3",
+							"value": {
+								"type": "String",
+								"content": "test"
+							}
+						},
+						{
+							"key": "ReturnVar4",
+							"value": {
+								"type": "Boolean",
+								"content": true
+							}
 						}
 					],
 					"setSystemVariable": true
