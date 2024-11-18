@@ -1,0 +1,14 @@
+{
+	"name": "Return Value",
+	"properties": {
+		"variables": {
+			"Var1": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Demo Pipelines/Misc"
+		},
+		"annotations": []
+	}
+}
