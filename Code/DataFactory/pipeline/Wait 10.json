@@ -8,7 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"waitTimeInSeconds": 10
+					"waitTimeInSeconds": {
+						"value": "@concat('Hello World')",
+						"type": "Expression"
+					}
 				}
 			}
 		],
