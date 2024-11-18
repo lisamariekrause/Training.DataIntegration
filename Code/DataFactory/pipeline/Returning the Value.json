@@ -37,7 +37,7 @@
 				"typeProperties": {
 					"variableName": "ReturnedValue",
 					"value": {
-						"value": "@activity('Execute Pipeline1').output.ReturnVar1",
+						"value": "@activity('Execute Pipeline1').output.pipelineReturnValue.ReturnVar1",
 						"type": "Expression"
 					}
 				}
