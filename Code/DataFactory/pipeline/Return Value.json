@@ -1,9 +1,35 @@
 {
 	"name": "Return Value",
 	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pipelineReturnValue",
+					"value": [
+						{
+							"key": "ReturnVar1",
+							"value": {
+								"type": "Expression",
+								"content": "@variables('Var1')"
+							}
+						}
+					],
+					"setSystemVariable": true
+				}
+			}
+		],
 		"variables": {
 			"Var1": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "HelloWorld"
 			}
 		},
 		"folder": {
