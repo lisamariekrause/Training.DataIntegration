@@ -17,6 +17,30 @@
 					},
 					"waitOnCompletion": true
 				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Execute Pipeline1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "ReturnedValue",
+					"value": {
+						"value": "@activity('Execute Pipeline1').output.Var1",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
