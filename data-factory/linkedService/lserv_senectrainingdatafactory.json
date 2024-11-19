@@ -1,0 +1,11 @@
+{
+	"name": "lserv_senectrainingdatafactory",
+	"properties": {
+		"description": "linked service to the data lake `senectrainingdatafactory`",
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://senectrainingdatafactory.dfs.core.windows.net/"
+		}
+	}
+}
