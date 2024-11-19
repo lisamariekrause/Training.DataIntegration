@@ -1,0 +1,9 @@
+{
+	"name": "senectrainingdatafactory",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c84bc42e-0db5-41dd-9b45-d6d873837049",
+		"tenantId": "5b1a9799-26d8-4f3f-a53a-49a49c45b357"
+	}
+}
